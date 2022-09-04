@@ -11,6 +11,8 @@ import { drawCircle } from './circle';
 // Man kann die Funktionen entfernen, die man in der jeweiligen Übung
 // nicht braucht (z.B. kein Reagieren auf Tastatur -> `keyPressed` weg).
 export let p: p5;
+let state = false;
+
 new p5((p5: p5) => {
   p = p5;
   p.preload = preload;
@@ -30,7 +32,8 @@ function preload() {
 function setup() {
   // Diese Funktion wird einmal beim Programmstart aufgerufen.
   // https://p5js.org/reference/#/p5/setup
-  p.createCanvas(700, 500);
+  p.createCanvas(500, 500);
+  p.frameRate(2);
 }
 
 function keyPressed() {
@@ -52,14 +55,48 @@ function draw() {
   p.background('white');
 
   // Beispiel für Aufruf einer Hilfsfunktion in einer anderen Datei.
-  drawCircle({ x: 200, y: 200 });
+  //drawCircle({ x: 200, y: 200 });
 
   //Linie zeichnen
   //p.stroke('black');
   //p.line(25, 25, 675, 25);
   //p.line(25, 25, 675, 475);
 
-  for (let y = 25; y < 425; y+= 40) {
-    p.line(25, y, 425, y);
+  /*
+  for (let y = 25; y < 475; y += 40) {
+    p.line(25, y, 675, y);
   }
+
+  p.arc(50, 50, 50, 50, 0, Math.PI - 0, p.OPEN);
+
+  if (state) {
+    drawCircle({ x: 300, y: 300 });
+    state = false;
+  } else {
+    drawCircle({ x: 400, y: 400 });
+    state = true;
+  }
+  */
+
+  // Level 1: Zeichnen wir einen Smilie
+
+    p.stroke('black');
+    p.fill('yellow');
+    p.strokeWeight(5);
+    p.circle(50, 50, 100);
+
+    if (state == true) {
+      p.fill('black');
+      p.circle(30, 35, 10);
+      state = false;
+    } else {
+      p.arc(30, 35, 10, 10, 0, Math.PI, p.OPEN);
+      state = true;
+    }
+
+    p.fill('black');
+    p.circle(70, 35, 10);
+    p.noFill();
+    p.arc(50, 50, 50, 50, 0.5, Math.PI - 0.5, p.OPEN);
+  
 }
